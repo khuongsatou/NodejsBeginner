@@ -4,13 +4,30 @@ const hostname = "127.0.0.1";
 const port = 3000;
 const express = require("express");
 const app = express();
+//Config
+// const pug = require("pug");
+app.set("views", "./views"); // Thư mục views nằm cùng cấp với file app.js
+app.set("view engine", "pug"); // Sử dụng pug làm view engine
+// const compiledFunction = pug.compileFile("template.pug");
+// console.log(
+//   compiledFunction({
+//     name: "Timothy",
+//   })
+// );
 
-app.get("/", function (req, res) {
-  // res.send("Hello World 2");
-  res.send("<h2>This is my first app</h2>");
+app.get("/hello-world", function (req, res) {
+  res.send("Hello World");
 });
 
-app.get("/newUser", (req, res) => {
+app.get("/users", function (req, res) {
+  var users = [
+    { name: "User1", email: "user1@gmail.com" },
+    { name: "User2", email: "user2@gmail.com" },
+  ];
+  res.render("users/index", { users: users });
+});
+
+app.get("/new-user", (req, res) => {
   let username = req.query.username || "";
   const password = req.query.password || "";
 
